@@ -240,6 +240,13 @@ public readonly struct RGB : IEquatable<RGB>
         return new RGB((byte)r, (byte)g, (byte)b);
     }
 
+    public RGB Desaturate(float factor)
+    {
+        float gray = 0.299f * R + 0.587f * G + 0.114f * B;
+        var grayscale = new RGB((byte)gray, (byte)gray, (byte)gray);
+
+        return ToOther(grayscale, factor);
+    }
 }
 
 public static class NullableRGBReviver
